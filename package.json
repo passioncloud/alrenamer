@@ -1,6 +1,6 @@
 {
   "name": "@passioncloud/alrenamer",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A CLI tool for renaming AL files",
   "main": "bin/index.js",
   "bin": {

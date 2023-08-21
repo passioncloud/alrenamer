@@ -34,7 +34,7 @@ function detectCorrectFilename(firstLine) {
     nm = nm.replace(/"/g, '')
     nm = nm.trim()
     if(nm.endsWith('.')) {
-        nm = nm.substring(0, nm.length) 
+        nm = nm.substring(0, nm.length - 1) 
     }
     nm += '.al'
     return nm 
