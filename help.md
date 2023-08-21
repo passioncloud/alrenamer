@@ -1,2 +1,5 @@
 For guidance on setting up a CLI project, see: 
-https://medium.com/@manavshrivastava/lets-build-a-cli-command-line-interface-with-node-js-d3b5faacc5ea
+https://hackernoon.com/how-to-build-a-command-line-utility-cli-with-nodejs-gm24315b
+
+To publish project for the first time to npm, use:
+npm publish --access public

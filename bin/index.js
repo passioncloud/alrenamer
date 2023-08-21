@@ -1,3 +1,7 @@
 #! /usr/bin/env node
 
-console.log('hi')
+const dir = process.cwd()
+
+console.log(dir)
+
+
