@@ -8,9 +8,11 @@ function processAlFiles() {
     const alFilesOnly = allFiles(dir).filter(filterAlFiles)
     alFilesOnly.forEach(filepath => {
         const l = firstLineInFile(filepath)
-        const correctFilename = detectCorrectFilename(l)
-        renameFile(filepath, correctFilename)
-        console.log(correctFilename)
+        if (l) {
+            const correctFilename = detectCorrectFilename(l)
+            renameFile(filepath, correctFilename)
+            console.log(correctFilename)
+        }
     })
 }
 
@@ -20,7 +22,19 @@ function processAlFiles() {
  */
 function firstLineInFile(filepath) {
     const fileContents = fse.readFileSync(filepath).toString()
-    const line1 = fileContents.split('\n')[0]
+    const lines = fileContents.split('\n')
+    const validLines = lines.filter(l => {
+        l = l?.trim()
+        let [firstWord, secondWord, ...rest] = l?.toLowerCase()?.split(' ')
+        const expectedStarters = ['report', 'reportextension', 'table', 'tableextension', 'page', 'pageextension', 'codeunit', 'permissionset', 'enum', 'enumextension']
+        const beginsWithCorrectWord = expectedStarters.includes(firstWord)
+        const secondWordIsNumber = !!Number(secondWord)
+        return beginsWithCorrectWord && secondWordIsNumber
+    })
+    const line1 = validLines[0]
+    if (!line1) {
+        console.error('Failed to find a valid first line for file', filepath)
+    }
     return line1;
 }
 
@@ -33,11 +47,11 @@ function detectCorrectFilename(firstLine) {
     nm = nm.split('extends')[0]
     nm = nm.replace(/"/g, '')
     nm = nm.trim()
-    if(nm.endsWith('.')) {
-        nm = nm.substring(0, nm.length - 1) 
+    if (nm.endsWith('.')) {
+        nm = nm.substring(0, nm.length - 1)
     }
     nm += '.al'
-    return nm 
+    return nm
 }
 
 /**
@@ -72,7 +86,7 @@ function allFiles(directory) {
  * @param {string} filepath 
  * @returns 
  */
-const filterAlFiles = filepath => filepath.endsWith('al') 
+const filterAlFiles = filepath => filepath.endsWith('al')
 
 
 
