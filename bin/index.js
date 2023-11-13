@@ -1,4 +1,6 @@
 #! /usr/bin/env node
+// above line is very essential for this code to be run using nodejs
+
 const fse = require('fs-extra')
 const fsRecursive = require('fs-readdir-recursive')
 const path = require('path')
@@ -26,7 +28,7 @@ function firstLineInFile(filepath) {
     const validLines = lines.filter(l => {
         l = l?.trim()
         let [firstWord, secondWord, ...rest] = l?.toLowerCase()?.split(' ')
-        const expectedStarters = ['report', 'reportextension', 'table', 'tableextension', 'page', 'pageextension', 'codeunit', 'permissionset', 'enum', 'enumextension']
+        const expectedStarters = ['report', 'query', 'reportextension', 'table', 'tableextension', 'page', 'pageextension', 'codeunit', 'permissionset', 'enum', 'enumextension']
         const beginsWithCorrectWord = expectedStarters.includes(firstWord)
         const secondWordIsNumber = !!Number(secondWord)
         return beginsWithCorrectWord && secondWordIsNumber
@@ -46,6 +48,7 @@ function detectCorrectFilename(firstLine) {
     let nm = firstLine
     nm = nm.split('extends')[0]
     nm = nm.replace(/"/g, '')
+    nm = nm.replace(/\//g, '')
     nm = nm.trim()
     if (nm.endsWith('.')) {
         nm = nm.substring(0, nm.length - 1)
