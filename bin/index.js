@@ -28,7 +28,7 @@ function firstLineInFile(filepath) {
     const validLines = lines.filter(l => {
         l = l?.trim()
         let [firstWord, secondWord, ...rest] = l?.toLowerCase()?.split(' ')
-        const expectedStarters = ['report', 'query', 'reportextension', 'table', 'tableextension', 'page', 'pageextension', 'codeunit', 'permissionset', 'enum', 'enumextension']
+        const expectedStarters = ['report', 'query', 'reportextension', 'table', 'tableextension', 'page', 'pageextension', 'codeunit', 'permissionset', 'enum', 'enumextension', 'xmlport']
         const beginsWithCorrectWord = expectedStarters.includes(firstWord)
         const secondWordIsNumber = !!Number(secondWord)
         return beginsWithCorrectWord && secondWordIsNumber
